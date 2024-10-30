@@ -869,7 +869,9 @@ margins:
 
 A *SOCKS server* proxies TCP connections to arbitrary IP addresses and ports
 
-With SOCKS 5, DNS queries can be performed by the proxy on behalf of the client
+With SOCKS version 5, DNS queries can be performed by the proxy on behalf of the client
+
+Your *local* machine is placed in the same networking context as *gateway*
 
 ```sshschema
  ┌───────────────────────┐            ┌─────────────────────────────────────────────┐
@@ -879,8 +881,8 @@ With SOCKS 5, DNS queries can be performed by the proxy on behalf of the client
  │   │     local     ├───┼────────────┤►│   gateway   ├─────────►│    internal    │ │
  │   └─┬───────────▲─┘   │    SSH     │ └─────────────┘  HTTP    └────────────────┘ │
  │     │   SOCKS   │     │            │  The SOCKS proxy         The internal HTTP  │
- │     └───────────┘     │            │                          server             │
- │         Step 2        │            │                                             │
+ │     └───────────┘     │            │                          server accessed by │
+ │         Step 2        │            │                          its DNS name       │
  └───────────────────────┘            └─────────────────────────────────────────────┘
 ```
 
@@ -932,12 +934,14 @@ margins:
 
 A reverse SOCKS proxy setup allows a remote machine to use your local machine as a SOCKS proxy
 
+*gateway* is placed in the same networking context as your *local* machine.
+
 ```sshschema
  ┌───────────────────────┐          ┌───────────────────────────────────────────┐
  │   Internet            │          │ Internal network                          │
  │                       │          │                                           │
  │   ┌───────────────┐   │  Step 1  │ ┌─────────────┐          ┌──────────────┐ │
- │   │     local     ├───┼──────────┤►│   gateway   ├─────────►│   internal   │ │
+ │   │     local     ├───┼──────────┤►│   gateway   │          │   internal   │ │
  │   └┬──────────────┘   │   SSH    │ └─▲─────────┬─┘          └──────────────┘ │
  │    │ Step 3           │          │   │         │                             │
  │    ▼ HTTP             │          │   │ Step 2  │                             │
@@ -991,6 +995,20 @@ margins:
 A *LocalForward* creates a locally listening TCP socket that is connected over
 SSH to a TCP port reachable in the network scope of a remote machine
 
+```sshschema
+ ┌────────────────────────┐            ┌─────────────────────────────────────────────┐
+ │ Local network          │            │ Internal network                            │
+ │                        │            │                                             │
+ │   ┌────────────────┐   │   Step 1   │ ┌─────────────┐  Step 3  ┌────────────────┐ │
+ │   │     local      ├───┼────────────┤►│   gateway   ├─────────►│    internal    │ │
+ │   └─┬────────────▲─┘   │    SSH     │ └─────────────┘  HTTP    └────────────────┘ │
+ │     │ connect to │     │            │    Forwarder             The internal HTTP  │
+ │     │ local port │     │            │                          server accessed    │
+ │     └────────────┘     │            │                          by IP its address  │
+ │         Step 2         │            │                                             │
+ └────────────────────────┘            └─────────────────────────────────────────────┘
+```
+
 *Lab objective:* Create and connect local listening TCP socket on port 8888 to TCP port 80 on
   127.0.0.1 in the context of *gateway*
 
@@ -1039,20 +1057,47 @@ margins:
     right: 10
 -->
 
-# RemoteForward (1/2)
+# RemoteForward (1/3)
 
 A *RemoteForward* creates a listening TCP socket on a remote machine that is
 connected over SSH to a TCP port reachable in the network scope of the local machine
 
+```sshschema
+ ┌───────────────────────┐          ┌───────────────────────────────────────────┐
+ │   Internet            │          │ Internal network                          │
+ │                       │          │                                           │
+ │   ┌───────────────┐   │  Step 1  │ ┌─────────────┐          ┌──────────────┐ │
+ │   │     local     ├───┼──────────┤►│   gateway   │          │   internal   │ │
+ │   └┬──────────────┘   │   SSH    │ └─▲─────────┬─┘          └──────────────┘ │
+ │    ▼ Step 3           │          │   │ Step 2  │                             │
+ │  local netcat server  │          │   └─────────┘                             │
+ │  is accessed by its   │          │    connect to                             │
+ │  IP address           │          │    local port                             │
+ └───────────────────────┘          └───────────────────────────────────────────┘
+```
+
 *Lab objective*: Create a TCP socket on *gateway* on port 8123 and connect it to a locally listening netcat on TCP port 1234
+
+
+---
+
+<!--config:
+margins:
+    left: 10
+    right: 10
+-->
+
+# RemoteForward (2/3)
 
 Setup:
 
 * Start a listening service on localhost on your local machine on TCP port 1234:
 ```sshschema
-(local)$ nc -l -p 1234 -s 127.0.0.1 # if you use netcat-traditional
-or
-(local)$ nc -l 127.0.0.1 1234 # if you use netcat-openbsd
+# if you use netcat-traditional
+(local)$ nc -l -p 1234 -s 127.0.0.1
+
+# or if you use netcat-openbsd
+(local)$ nc -l 127.0.0.1 1234
 ```
 
 * Check that it's listening with `ss` (`netstat` replacement on GNU/Linux):
@@ -1076,7 +1121,7 @@ margins:
     right: 10
 -->
 
-# RemoteForward (2/2)
+# RemoteForward (3/3)
 
 
 `-R` parameter syntax:
@@ -1100,7 +1145,7 @@ can be extended to
 
 * Both netcat instances, local & remote, should be able to communicate with each other
 
-**Note**: reverse proxy SOCKS is a special use case of `-R`
+**Note**: reverse SOCKS proxy is a special use case of `-R`
 
 ---
 
