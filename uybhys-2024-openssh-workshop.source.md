@@ -14,9 +14,9 @@ patat:
             keyword: [bold, rgb#FF0000]
             import: [bold, rgb#00FF00]
             builtIn: [bold, rgb#0000FF]
-#    transition:
-#        type: slideLeft
-#        duration: 0.2
+    transition:
+        type: slideLeft
+        duration: 0.2
 geometry: "left=1cm,right=1cm,top=1cm,bottom=1cm"
 output: pdf_document
 ...
@@ -148,7 +148,7 @@ sudo systemctl --now enable docker
 
 ## Various other tools
 
-We will use `netcat` (`netcat-traditional` on Debian/Ubuntu), `curl`, `wireshark` (or `tcpdump`).
+We will use `netcat` (`netcat-traditional` on Debian/Ubuntu), `jq`, `curl`, `wireshark` (or `tcpdump`).
 
 ---
 
