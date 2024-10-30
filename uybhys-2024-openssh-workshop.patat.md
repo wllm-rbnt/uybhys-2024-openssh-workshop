@@ -148,7 +148,7 @@ sudo systemctl --now enable docker
 
 ## Various other tools
 
-We will use `netcat` (`netcat-traditional` on Debian/Ubuntu), `curl`, `wireshark` (or `tcpdump`).
+We will use `netcat` (`netcat-traditional` on Debian/Ubuntu), `jq`, `curl`, `wireshark` (or `tcpdump`).
 
 ---
 
