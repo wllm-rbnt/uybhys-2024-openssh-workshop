@@ -29,7 +29,7 @@ William Robinet (Conostix S.A.) - 2024-11-08
 
 Matrix Room: *https://t.ly/sQFh-* -- GitHub Repository: *https://t.ly/YrzJT*
 
-Wi-Fi SSID: *TBD* -- Wi-Fi password: *TBD*
+Wi-Fi SSID: *uybhys2024_openssh_workshop* -- Wi-Fi password: *uybhys2024*
 
 ---
 
