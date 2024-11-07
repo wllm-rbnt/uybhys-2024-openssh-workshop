@@ -39,6 +39,27 @@ margins:
     right: 10
 -->
 
+# About me
+
+* Introduced to Open Source & Free Software around the end of the 90's
+* CompSci studies, work in IT at Conostix S.A. - AS197692
+* Open Source contributions:
+    + ssldump improvements (build system, bug fixes, JSON output, IPv6 & ja3(s), ...)
+    + asn1template: painless ASN.1 editing
+* Conference workshops & presentations
+* 🎸 🏃 🚵 🔭 ⏚ ...
+* Contact info
+    + GitHub: **https://github.com/wllm-rbnt**
+    + Mastodon: **https://infosec.exchange/@wr**
+
+---
+
+<!--config:
+margins:
+    left: 10
+    right: 10
+-->
+
 # Before we begin 1/2
 
 ## Workshop resources
@@ -93,34 +114,13 @@ The Markdown version can be converted to PDF & HTML by using the provided
 ---
 
 <!--config:
-margins:
-    left: 10
-    right: 10
--->
-
-# About me
-
-* Introduced to Open Source & Free Software around the end of the 90's
-* CompSci studies, work in IT at Conostix S.A. - AS197692
-* Open Source contributions:
-    + ssldump improvements (build system, bug fixes, JSON output, IPv6 & ja3(s), ...)
-    + asn1template: painless ASN.1 editing
-* Conference workshops & presentations
-* 🎸 🏃 🚵 🔭 ⏚ ...
-* Contact info
-    + GitHub: **https://github.com/wllm-rbnt**
-    + Mastodon: **https://infosec.exchange/@wr**
-
----
-
-<!--config:
 wrap: false
 margins:
     left: 10
     right: 10
 -->
 
-# Local Machine Setup
+# Local Machine Setup (1/2)
 
 ## Docker Installation
 
@@ -149,6 +149,102 @@ sudo systemctl --now enable docker
 ## Various other tools
 
 We will use `netcat` (`netcat-traditional` on Debian/Ubuntu), `jq`, `curl`, `wireshark` (or `tcpdump`).
+
+---
+
+<!--config:
+wrap: false
+margins:
+    left: 10
+    right: 10
+-->
+
+# Local Machine Setup (2/2)
+
+## Docker Installation on MacOS
+
+The Docker containers used in this workshop can be built and run on MacOS.
+
+Install Docker using brew:
+```bash
+brew install jq
+brew install --cask docker
+```
+
+But access can only be made through locally forwarded ports on *localhost* (aka *127.0.0.1* or *::1*).
+```bash
+ssh user@127.0.0.1 -p 8022
+```
+instead of
+```bash
+ssh user@172.18.0.2
+```
+---
+
+<!--config:
+wrap: false
+margins:
+    left: 10
+    right: 10
+-->
+
+# Labs Containers (1/2)
+
+* 2 containers will be used during this workshop, one for *gateway* and a second for *internal*
+
+* Build and start containers with:
+```sshschema
+(local)$ cd docker
+(local)$ ./build_containers.sh
+(local)$ ./start_containers.sh
+```
+
+ * Print setup information:
+```sshschema
+(local)$ ./get_info.sh
+```
+
+ * Stop containers with:
+```sshschema
+(local)$ ./stop_containers.sh
+```
+   
+* Cleanup the whole Docker setup:
+    **WARNING this will remove all containers, images and networks from your local Docker setup**
+    
+```sshschema
+(local)$ ./docker_wipe.sh
+(local)$ sudo systemctl restart docker
+```
+
+---
+
+<!--config:
+wrap: false
+margins:
+    left: 10
+    right: 10
+-->
+
+# Labs Containers (2/2)
+
+Pre-built versions of the containers (provided via USB drives or Wi-Fi *http://192.168.178.2/*) can be loaded
+from the `docker/images/` directory with the following command:
+
+```sshschema
+(local)$ cd docker
+(local)$ ./load_images.sh
+```
+
+Locally built container images, can be exported to files in the
+`docker/images/` directory with the following command:
+
+```sshschema
+(local)$ cd docker
+(local)$ ./save_images.sh
+```
+
+
 
 ---
 
@@ -217,71 +313,6 @@ Shell commands are prefixed by a prompt designating the machine on which the com
     + <gateway_pub\>
     + <gateway_priv\>
     + <internal_priv\>
-
----
-
-<!--config:
-wrap: false
-margins:
-    left: 10
-    right: 10
--->
-
-# Labs Containers (1/2)
-
-* 2 containers will be used during this workshop, one for *gateway* and a second for *internal*
-
-* Build and start containers with:
-```sshschema
-(local)$ cd docker
-(local)$ ./build_containers.sh
-(local)$ ./start_containers.sh
-```
-
- * Print setup information:
-```sshschema
-(local)$ ./get_info.sh
-```
-
- * Stop containers with:
-```sshschema
-(local)$ ./stop_containers.sh
-```
-   
-* Cleanup the whole Docker setup:
-    **WARNING this will remove all containers, images and networks from your local Docker setup**
-    
-```sshschema
-(local)$ ./docker_wipe.sh
-(local)$ sudo systemctl restart docker
-```
-
----
-
-<!--config:
-wrap: false
-margins:
-    left: 10
-    right: 10
--->
-
-# Labs Containers (2/2)
-
-Pre-built versions of the containers (provided via USB drives) can be loaded
-from the `docker/images/` directory with the following command:
-
-```sshschema
-(local)$ cd docker
-(local)$ ./load_images.sh
-```
-
-Locally built container images, can be exported to files in the
-`docker/images/` directory with the following command:
-
-```sshschema
-(local)$ cd docker
-(local)$ ./save_images.sh
-```
 
 ---
 
