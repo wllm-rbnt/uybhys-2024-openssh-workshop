@@ -244,7 +244,13 @@ Locally built container images, can be exported to files in the
 (local)$ ./save_images.sh
 ```
 
-
+Images downloaded from local webserver can be verified for integrity with the following command:
+```sshschema
+(local)$ cd docker/images
+(local)$ sha256sum -c SHA256SUMS
+docker-gateway.image: OK
+docker-internal.image: OK
+```
 
 ---
 
@@ -564,6 +570,7 @@ margins:
 
 Client:
 
+- Command line arguments
 - Per-user client configuration: `~/.ssh/config`
 - System-wide local configuration: `/etc/ssh/ssh_config.d/*`
 - System-wide client configuration: `/etc/ssh/ssh_config`
