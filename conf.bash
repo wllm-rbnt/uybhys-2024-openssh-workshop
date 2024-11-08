@@ -2,7 +2,7 @@ conf_name="Unlock Your Brain, Harden Your System"
 conf_location="Brest"
 conf_year="2024"
 
-wifi_ssid="uybhys2024_openssh_workshop"
+wifi_ssid="uybhys2024\\\_openssh\\\_workshop"
 wifi_pass="uybhys2024"
 
 ws_title="Exploring OpenSSH: Hands-On Workshop for Beginners"

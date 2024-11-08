@@ -29,7 +29,9 @@ William Robinet (Conostix S.A.) - 2024-11-08
 
 Matrix Room: *https://t.ly/sQFh-* -- GitHub Repository: *https://t.ly/YrzJT*
 
-Wi-Fi SSID: *uybhys2024_openssh_workshop* -- Wi-Fi password: *uybhys2024*
+Wi-Fi SSID: *uybhys2024\_openssh\_workshop* -- Wi-Fi password: *uybhys2024*
+
+Docker images download --> *http://192.168.178.2*
 
 ---
 
@@ -1037,13 +1039,13 @@ SSH to a TCP port reachable in the network scope of a remote machine
  ┌────────────────────────┐            ┌─────────────────────────────────────────────┐
  │ Local network          │            │ Internal network                            │
  │                        │            │                                             │
- │   ┌────────────────┐   │   Step 1   │ ┌─────────────┐  Step 3  ┌────────────────┐ │
- │   │     local      ├───┼────────────┤►│   gateway   ├─────────►│    internal    │ │
- │   └─┬────────────▲─┘   │    SSH     │ └─────────────┘  HTTP    └────────────────┘ │
- │     │ connect to │     │            │    Forwarder             The internal HTTP  │
- │     │ local port │     │            │                          server accessed    │
- │     └────────────┘     │            │                          by IP its address  │
- │         Step 2         │            │                                             │
+ │   ┌────────────────┐   │   Step 1   │ ┌─────────────┐          ┌────────────────┐ │
+ │   │     local      ├───┼────────────┤►│   gateway   ├──────────│    internal    │ │
+ │   └─┬────────────▲─┘   │    SSH     │ └▲───────────┬┘          └────────────────┘ │
+ │     │ connect to │     │            │  │ Forwarder │                              │
+ │     │ local port │     │            │  └───────────┘                              │
+ │     └────────────┘     │            │  Step 3: The internal HTTP server           │
+ │         Step 2         │            │  is accessed by IP its address              │
  └────────────────────────┘            └─────────────────────────────────────────────┘
 ```
 

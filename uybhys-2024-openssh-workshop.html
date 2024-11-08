@@ -249,6 +249,7 @@ Beginners</strong></p>
 <em>https://t.ly/YrzJT</em></p>
 <p>Wi-Fi SSID: <em>uybhys2024_openssh_workshop</em> – Wi-Fi password:
 <em>uybhys2024</em></p>
+<p>Docker images download –&gt; <em>http://192.168.178.2</em></p>
 <hr />
 <!--config:
 margins:
@@ -1115,13 +1116,13 @@ remote machine</p>
 class="sourceCode sshschema"><code class="sourceCode schematics"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a> ┌────────────────────────┐            ┌─────────────────────────────────────────────┐</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a> │ Local network          │            │ Internal network                            │</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a> │                        │            │                                             │</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a> │   ┌────────────────┐   │   Step 1   │ ┌─────────────┐  Step 3  ┌────────────────┐ │</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a> │   │     <span class="im">local</span>      ├───┼────────────┤►│   <span class="bu">gateway</span>   ├─────────►│    <span class="kw">internal</span>    │ │</span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a> │   └─┬────────────▲─┘   │    SSH     │ └─────────────┘  HTTP    └────────────────┘ │</span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a> │     │ connect to │     │            │    Forwarder             The <span class="kw">internal</span> HTTP  │</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a> │     │ <span class="im">local</span> port │     │            │                          server accessed    │</span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a> │     └────────────┘     │            │                          by IP its address  │</span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a> │         Step 2         │            │                                             │</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a> │   ┌────────────────┐   │   Step 1   │ ┌─────────────┐          ┌────────────────┐ │</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a> │   │     <span class="im">local</span>      ├───┼────────────┤►│   <span class="bu">gateway</span>   ├──────────│    <span class="kw">internal</span>    │ │</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a> │   └─┬────────────▲─┘   │    SSH     │ └▲───────────┬┘          └────────────────┘ │</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a> │     │ connect to │     │            │  │ Forwarder │                              │</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a> │     │ <span class="im">local</span> port │     │            │  └───────────┘                              │</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a> │     └────────────┘     │            │  Step 3: The <span class="kw">internal</span> HTTP server           │</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a> │         Step 2         │            │  is accessed by IP its address              │</span>
 <span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a> └────────────────────────┘            └─────────────────────────────────────────────┘</span></code></pre></div>
 <p><em>Lab objective:</em> Create and connect local listening TCP socket
 on port 8888 to TCP port 80 on 127.0.0.1 in the context of

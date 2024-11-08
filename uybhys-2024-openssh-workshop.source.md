@@ -31,6 +31,8 @@ Matrix Room: *@@matrix_room_short@@* -- GitHub Repository: *@@gh_repo_short@@*
 
 Wi-Fi SSID: *@@wifi_ssid@@* -- Wi-Fi password: *@@wifi_pass@@*
 
+Docker images download --> *http://192.168.178.2*
+
 ---
 
 <!--config:
@@ -1037,13 +1039,13 @@ SSH to a TCP port reachable in the network scope of a remote machine
  ┌────────────────────────┐            ┌─────────────────────────────────────────────┐
  │ Local network          │            │ Internal network                            │
  │                        │            │                                             │
- │   ┌────────────────┐   │   Step 1   │ ┌─────────────┐  Step 3  ┌────────────────┐ │
- │   │     local      ├───┼────────────┤►│   gateway   ├─────────►│    internal    │ │
- │   └─┬────────────▲─┘   │    SSH     │ └─────────────┘  HTTP    └────────────────┘ │
- │     │ connect to │     │            │    Forwarder             The internal HTTP  │
- │     │ local port │     │            │                          server accessed    │
- │     └────────────┘     │            │                          by IP its address  │
- │         Step 2         │            │                                             │
+ │   ┌────────────────┐   │   Step 1   │ ┌─────────────┐          ┌────────────────┐ │
+ │   │     local      ├───┼────────────┤►│   gateway   ├──────────│    internal    │ │
+ │   └─┬────────────▲─┘   │    SSH     │ └▲───────────┬┘          └────────────────┘ │
+ │     │ connect to │     │            │  │ Forwarder │                              │
+ │     │ local port │     │            │  └───────────┘                              │
+ │     └────────────┘     │            │  Step 3: The internal HTTP server           │
+ │         Step 2         │            │  is accessed by IP its address              │
  └────────────────────────┘            └─────────────────────────────────────────────┘
 ```
 
